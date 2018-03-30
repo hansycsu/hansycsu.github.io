@@ -53,8 +53,8 @@ In cinnamon.css:
 
 <br><h2 id="bg-issue">VIM背景黑色顯示不正確(變灰色)</h2>
 
-這是因為 GNOME Terminal 的 Palette 定義問題。
-設定方式：Edit→Profile Preferences，選擇Colors分頁，修改下面的調色盤第一項
+這是因為 GNOME Terminal 的 Palette 定義問題。  
+設定方式：Edit→Profile Preferences，選擇Colors分頁，修改下面的調色盤第一項  
 參考：[black backgrounds appear grey on gnome-terminal][ref_bgissue]
 
 [ref_bgissue]: https://superuser.com/questions/142486/black-backgrounds-appear-grey-on-gnome-terminal
@@ -125,7 +125,8 @@ Example:
     ./configure && make
     sudo checkinstall #instead of make install
 
-參考：[Linux源碼安裝工具Checkinstall][checkinstall_1] ;   [Checkinstall Readme][checkinstall_2]
+參考1：[Linux源碼安裝工具Checkinstall][checkinstall_1]  
+參考2：[Checkinstall Readme][checkinstall_2]
 
 [checkinstall_1]: https://www.ibm.com/developerworks/cn/linux/l-cn-checkinstall/
 [checkinstall_2]: http://www.asic-linux.com.mx/~izto/checkinstall/docs/README
@@ -142,8 +143,9 @@ Example:
     update-grub
     sudo reboot
 
-完成，以sda1重新開機即可。
-參考：[GRUB2中文指南第二版(上）][grub_1] ;   [Reinstalling GRUB 2][grub_2]
+完成，以sda1重新開機即可。  
+參考1：[GRUB2中文指南第二版(上）][grub_1]  
+參考2：[Reinstalling GRUB 2][grub_2]
 
 [grub_1]: http://wiki.ubuntu-tw.org/index.php?title=GRUB2%E4%B8%AD%E6%96%87%E6%8C%87%E5%8D%97%E7%AC%AC%E4%BA%8C%E7%89%88%28%E4%B8%8A%EF%BC%89#.E9.87.8D.E6.96.B0.E5.AE.89.E8.A3.9D_GRUB_2
 [grub_2]: https://help.ubuntu.com/community/Grub2/Installing#Reinstalling_GRUB_2
