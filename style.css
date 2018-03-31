@@ -1,0 +1,94 @@
+h1,h2,h3,h4,h5,h6{
+  margin:10px 0;
+  font-weight:700;
+  color:#222222;
+  font-family:'Microsoft JhengHei', 'Lucida Grande', 'Calibri', Helvetica, Arial, sans-serif;
+  letter-spacing:-1px;
+}
+h1{
+  padding:20px;
+  font-size:44px;
+  font-weight:700;
+  margin-bottom:25px;
+  text-shadow: 2px 2px #777777;
+}
+h2{
+  padding-bottom:10px;
+  font-size:32px;
+}
+h3{
+  font-size:24px;
+}
+h4{
+  font-size:21px;
+}
+h5{
+  font-size:18px;
+}
+h6{
+  font-size:16px;
+}
+code{
+  font-size:14px;
+  font-family:'Microsoft YaHei Mono', 'Consolas', 'DejaVu Sans Mono for Powerline', 'DejaVu Sans Mono';
+  padding:3px;
+  margin:0 3px;
+  box-shadow:0 0 3px #000000;
+  background-color:#dddddd;
+}
+pre{
+  background-color:#1f1f1f;
+  color:#ffffff;
+  padding:10px;
+  box-shadow:0 0 10px #000000;
+  overflow:auto;
+}
+pre code{
+  display:block;
+  box-shadow:none;
+  background-color:#1f1f1f;
+}
+blockquote{
+  color:#333333;
+  margin-left:0px;
+  margin-bottom:20px;
+  padding:0 0 0 0px;
+  border-left:3px solid #666666;
+}
+ul{
+  margin-bottom:15px;
+  list-style-position:inside;
+  list-style:disc;
+  padding-left:20px
+}
+a{
+  text-decoration:none;
+  color:#0F79D0;
+  text-shadow:none;
+}
+table.index li:hover{
+  text-decoration:none;
+  text-shadow:none;
+  background-color:#e0e0e0
+}
+table.index h2{
+  padding-bottom:0px;
+  font-size:32px;
+  text-align:center
+}
+body{
+  background-image:url("https://lostandtaken.com/wp-content/uploads/edd/2016/02/seamless-background-textures-24-780x780.jpg")
+}
+.inner{
+  position:relative;
+  max-width:720px;
+  padding:20px 10px;
+  margin:0 auto;
+  background-color:#D0D0D0;
+  box-shadow:0 0 10px #111111;
+}
+img{
+  position: relative;
+  top:13px;
+  width:57px;
+}

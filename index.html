@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="./style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>README</title>
+</head>
+
+<body>
+<div id="main_content_wrap" class="outer">
+<section id="main_content" class="inner">
+
+
+<!--From_MarkDown{{{-->
+<h1>
+  <img alt="MintLogo" width="70" src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Linux_Mint_logo_without_wordmark.svg">
+  YC's Linux Mint Note
+</h1>
+
+<hr>
+
+<table class="index" border="1" cellpadding="5" cellspacing="3"><tr>
+<th>
+<h2>目錄</h2>
+</th>
+<tr>
+<td>
+<ul>
+<a href="#install-font"><li>安裝字型</li></a>
+<a href="#panel-font"><li>設定面版 (Panel) 字型</li></a>
+<a href="#bg-issue"><li>VIM背景黑色顯示不正確(變灰色)</li></a>
+<a href="#libreoffice-font-history"><li>LibreOffice 字型使用紀錄</li></a>
+<a href="#ime"><li>輸入法相關</li></a>
+<a href="#package-management"><li>套件管理指令</li></a>
+<a href="#tarball-to-deb"><li>讓Tarball也變成套件</li></a>
+<a href="#repair-boot"><li>開機修復 (grub 2)</li></a>
+<a href="#disk-management"><li>查看磁碟資訊</li></a>
+<a href="#dis-swap"><li>關閉Swap</li></a>
+<a href="#home-locale"><li>家目錄改英文</li></a>
+<a href="#shutter"><li>截圖軟體 Shutter</li></a>
+</ul>
+</td></tr>
+</tr></table>
+<hr>
+<p><br><h2 id="install-font">安裝字型</h2></p>
+<p>微軟英文字體： ttf-mscorefonts-installer<br>
+文泉驛正黑：fonts-wqy-zenhei<br>
+系統字型路徑： /usr/share/fonts/truetype<br>
+使用者字型路徑： ~/.local/share/fonts/</p>
+<p>安裝步驟：</p>
+<blockquote>
+<ol>
+<li>複製字型檔到系統字型路徑</li>
+<li>fc-cache -f -v</li>
+</ol>
+</blockquote>
+<pre><code>apt install ttf-mscorefonts-installer
+apt install fonts-wqy-zenhei
+cd /usr/share/fonts/truetype
+sudo mkdir MyFonts
+cd MyFonts
+cp /path/to/fonts/* ./
+fc-cache -f -v
+</code></pre>
+<p><br><h2 id="panel-font">設定面版 (Panel) 字型</h2></p>
+<p>將以下的<strong><em>Mint-X</em></strong>換成你正在使用的主題(可在 <em>/usr/share/themes/</em> 查看)</p>
+<pre><code>cp -r /usr/share/themes/Mint-X ~/.themes
+vim ~/.themes/Mint-X/cinnamon/cinnamon.css
+</code></pre>
+<p>In cinnamon.css:</p>
+<pre><code>stage {
+    /* replace DEFAULT_FONT with your preferred one */
+    font-family: DEFAULT_FONT;
+}
+</code></pre>
+<p><br><h2 id="bg-issue">VIM背景黑色顯示不正確(變灰色)</h2></p>
+<p>這是因為 GNOME Terminal 的 Palette 定義問題。<br>
+設定方式：Edit→Profile Preferences，選擇Colors分頁，修改下面的調色盤第一項<br>
+參考：<a href="https://superuser.com/questions/142486/black-backgrounds-appear-grey-on-gnome-terminal">black backgrounds appear grey on gnome-terminal</a></p>
+<p><br><h2 id="libreoffice-font-history">LibreOffice 字型使用紀錄</h2></p>
+<p>LibreOffice 的設定檔在 <em>~/.config/libreoffice/</em> 底下，而字型使用記錄在 <em>~/.config/libreoffice/4/user/config/fontnameboxmruentries</em></p>
+<pre><code>vim ~/.config/libreoffice/4/user/config/fontnameboxmruentries
+</code></pre>
+<p><br><h2 id="ime">輸入法相關</h2></p>
+<p>安裝輸入法：</p>
+<pre><code>sudo apt-get install fcitx
+sudo apt-get install fcitx-chewing
+sudo apt-get install fcitx-table-boshiamy
+sudo apt-get purge ibus
+im-config (Choose fcitx as default IME)
+</code></pre>
+<p>懶人全裝法：</p>
+<pre><code>apt install fcitx fcitx-tools fcitx-config* fcitx-frontend* fcitx-module* fcitx-ui-* presage
+</code></pre>
+<p>無法顯示選字窗時：(這個套件僅在kde桌面正常運作)</p>
+<pre><code>apt purge fcitx-module-kimpanel
+</code></pre>
+<p><br><h2 id="package-management">套件管理指令</h2></p>
+<p>增加 / 移除 軟體源 (PPA)：</p>
+<pre><code>sudo add-apt-repository ppa:fcitx-team/nightly
+sudo add-apt-repository --remove ppa:whatever/ppa
+</code></pre>
+<p>使用 apt 安裝 / 移除 / 更新：</p>
+<pre><code>sudo apt install PACKAGE   #安裝
+sudo apt remove PACKAGE    #移除
+sudo apt purge PACKAGE     #完整移除(含設定檔)
+sudo apt autoremove        #清理未使用的套件
+sudo apt update            #更新套件資訊(常用於設定PPA後)
+sudo apt upgrade           #更新套件
+sudo apt full-upgrade      #更新套件，必要時自動移除套件(常用於系統更新)
+sudo apt edit-sources      #取代sudo vi /etc/apt/sources.list
+sudo apt-mark hold PACKAGE #將PACKAGE設定為不更新
+sudo apt-mark auto PACKAGE #將PACKAGE設定為自動更新/移除
+</code></pre>
+<p>套件查詢：</p>
+<pre><code>apt search ‘REGEX’ #以Regex搜尋套件
+apt show PACKAGE #顯示PACKAGE詳細資訊
+apt list --installed #列出已安裝套件
+apt list --upgradable #列出可更新套件
+dpkg -l PACKAGE #顯示套件狀態
+dpkg -L PACKAGE #顯示套件安裝路徑
+</code></pre>
+<p><br><h2 id="tarball-to-deb">讓Tarball也變成套件</h2></p>
+<p><strong>Checkinstall</strong>除了可以追蹤<code>make install</code>的安裝，他還可以追蹤任何Script/Command的檔案修改。這個程式會在 <em>/var/log/packages</em> 產生.deb檔，可由<code>dpkg -r</code>移除</p>
+<pre><code>sudo apt install checkinstall
+</code></pre>
+<p>Example:</p>
+<pre><code>tar jxvf squid-2.6.STABLE12.tar.bz2
+cd squid-2.6.STABLE12
+./configure &amp;&amp; make
+sudo checkinstall #instead of make install
+</code></pre>
+<p>參考1：<a href="https://www.ibm.com/developerworks/cn/linux/l-cn-checkinstall/">Linux源碼安裝工具Checkinstall</a><br>
+參考2：<a href="http://www.asic-linux.com.mx/~izto/checkinstall/docs/README">Checkinstall Readme</a></p>
+<p><br><h2 id="repair-boot">開機修復 (grub 2)</h2></p>
+<p>首先以Live CD/USB開機，接著開啟Terminal執行以下指令：</p>
+<pre><code>sudo fdisk -l #確認bootloader分割區，以下以sda1為例
+sudo mount /dev/sda1 /mnt
+for i in /dev /dev/pts /proc /sys; do sudo mount -B $i /mnt$i; done
+sudo chroot /mnt
+grub-install /dev/sda
+update-grub
+sudo reboot
+</code></pre>
+<p>完成，以sda1重新開機即可。<br>
+參考1：<a href="http://wiki.ubuntu-tw.org/index.php?title=GRUB2%E4%B8%AD%E6%96%87%E6%8C%87%E5%8D%97%E7%AC%AC%E4%BA%8C%E7%89%88%28%E4%B8%8A%EF%BC%89#.E9.87.8D.E6.96.B0.E5.AE.89.E8.A3.9D_GRUB_2">GRUB2中文指南第二版(上）</a><br>
+參考2：<a href="https://help.ubuntu.com/community/Grub2/Installing#Reinstalling_GRUB_2">Reinstalling GRUB 2</a></p>
+<p><br><h2 id="disk-management">硬碟管理</h2></p>
+<p>查看硬碟資訊：</p>
+<pre><code>sudo fdisk -l
+lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,UUID
+</code></pre>
+<p><br><h2 id="dis-swap">關閉Swap</h2></p>
+<p>以下是如何在系統安裝完成後關閉Swap</p>
+<pre><code>sudo swapoff -a
+free #確認swap是否為0
+sudo parted /dev/sdc
+(parted) unit b #設定單位為Byte
+(parted) print #確認分區編號
+(parted) rm 6 #移除Swap分區
+(parted) resizepart 5 100% #重新分配剩下的分區給sdc5
+</code></pre>
+<p><br><h2 id="home-locale">家目錄改英文</h2></p>
+<h3>方法一</h3>
+<p>設語系為英文，再執行<code>xdg-user-dirs-gtk-update</code></p>
+<pre><code>export LANG=en_US
+xdg-user-dirs-gtk-update
+</code></pre>
+<p>此後再執行<code>xdg-user-dirs-gtk-update</code>會沒有作用，若要改回來，需修改設定檔：</p>
+<pre><code>echo zh_TW &gt; ~/.config/user-dirs.locale
+</code></pre>
+<h3>方法二</h3>
+<p>中文到英文：</p>
+<pre><code>export LC_ALL=en_US.UTF-8
+xdg-user-dirs-update --force
+</code></pre>
+<p>英文到中文：</p>
+<pre><code>export LC_ALL=zh_TW.UTF-8
+xdg-user-dirs-update --force
+</code></pre>
+<p>如果不想再被提示更新目錄，可以執行</p>
+<pre><code>echo en_US &gt; ~/.config/user-dirs.locale #目前為英文
+echo zh_TW &gt; ~/.config/user-dirs.locale #目前為中文
+</code></pre>
+<p><br><h2 id="shutter">截圖軟體 Shutter</h2></p>
+<pre><code>sudo apt-add-repository ppa:shutter/ppa
+apt update
+apt install shutter 
+apt install libgoo-canvas-perl #編輯功能
+apt install gnome-web-photo #網頁截圖
+apt install libimage-exiftool-perl #旋轉時修改metadata
+</code></pre>
+<!--From_MarkDown}}}-->
+
+
+</section>
+</div>
+</body>
+</html>
