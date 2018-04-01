@@ -1,23 +1,3 @@
-# YC's Linux Mint Note
-
-![MintLogo](https://upload.wikimedia.org/wikipedia/commons/3/3f/Linux_Mint_logo_without_wordmark.svg)
----
-
-* [安裝字型](#install-font)
-* [設定面版 (Panel) 字型](#panel-font)
-* [VIM背景黑色顯示不正確(變灰色)](#bg-issue)
-* [LibreOffice 字型使用紀錄](#libreoffice-font-history)
-* [輸入法相關](#ime)
-* [套件管理指令](#package-management)
-* [讓Tarball也變成套件](#tarball-to-deb)
-* [開機修復 (grub 2)](#repair-boot)
-* [查看磁碟資訊](#disk-management)
-* [關閉Swap](#dis-swap)
-* [家目錄改英文](#home-locale)
-* [截圖軟體 Shutter](#shutter)
-
----
-
 <br><h2 id="install-font">安裝字型</h2>
 
 微軟英文字體： ttf-mscorefonts-installer  

@@ -1,3 +1,6 @@
+p{
+  font-size:16px;
+}
 h1,h2,h3,h4,h5,h6{
   margin:10px 0;
   font-weight:700;
@@ -38,7 +41,6 @@ code{
 }
 pre{
   background-color:#1f1f1f;
-  color:#ffffff;
   padding:10px;
   box-shadow:0 0 10px #000000;
   overflow:auto;
@@ -47,6 +49,7 @@ pre code{
   display:block;
   box-shadow:none;
   background-color:#1f1f1f;
+  color:#ffffff;
 }
 blockquote{
   color:#333333;
@@ -59,22 +62,30 @@ ul{
   margin-bottom:15px;
   list-style-position:inside;
   list-style:disc;
-  padding-left:20px
+  padding-left:20px;
 }
 a{
   text-decoration:none;
   color:#0F79D0;
   text-shadow:none;
 }
+table.index{
+  background-color:#1f1f1f;
+}
 table.index li:hover{
   text-decoration:none;
   text-shadow:none;
-  background-color:#e0e0e0
+  background-color:#e0e0e0;
+  color:#404040;
 }
 table.index h2{
   padding-bottom:0px;
   font-size:32px;
-  text-align:center
+  text-align:center;
+  color:#ffffff;
+}
+table.index a{
+  color:#ffffff;
 }
 body{
   background-image:url("https://lostandtaken.com/wp-content/uploads/edd/2016/02/seamless-background-textures-24-780x780.jpg")
@@ -84,8 +95,15 @@ body{
   max-width:720px;
   padding:20px 10px;
   margin:0 auto;
-  background-color:#D0D0D0;
   box-shadow:0 0 10px #111111;
+
+  /*background-color:#D0D0D0;*/
+  /* Gradient background color */
+  background: #d2ebf9;
+  background: -moz-linear-gradient(left, #d2ebf9 0%, #feffff 50%, #d2ebf9 100%);
+  background: -webkit-linear-gradient(left, #d2ebf9 0%,#feffff 50%,#d2ebf9 100%);
+  background: linear-gradient(to right, #d2ebf9 0%,#feffff 50%,#d2ebf9 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2ebf9', endColorstr='#d2ebf9',GradientType=1 );
 }
 img{
   position: relative;
