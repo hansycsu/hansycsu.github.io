@@ -5,7 +5,7 @@
   <link rel="icon" type="image/png" href="res/mint.png"/>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>YC's Linux Mint Note</title>
+  <title>YC's Linux Note</title>
 </head>
 
 <body>
@@ -14,8 +14,8 @@
 
 
 <h1>
-  <img alt="MintLogo" width="70" src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Linux_Mint_logo_without_wordmark.svg">
-  YC's Linux Mint Note
+  <img alt="MintLogo" width="70" src="res/mint.svg">
+  YC's Linux Note
 </h1>
 
 <hr>
@@ -39,6 +39,7 @@
 <a href="#dis-swap"><li>關閉Swap</li></a>
 <a href="#home-locale"><li>家目錄改英文</li></a>
 <a href="#shutter"><li>截圖軟體 Shutter</li></a>
+<a href="#remap"><li>修改Xorg鍵盤對應</li></a>
 </ul>
 </td></tr>
 </tr></table>
@@ -192,6 +193,12 @@ apt install shutter
 apt install libgoo-canvas-perl #編輯功能
 apt install gnome-web-photo #網頁截圖
 apt install libimage-exiftool-perl #旋轉時修改metadata
+</code></pre>
+<p><br><h2 id="remap">修改Xorg鍵盤對應</h2></p>
+<p>以下以交換Ctrl &amp;
+Capslock為例，其他option可以在 <code>/usr/share/X11/xkb/rules/base.lst</code></p> 中找到
+
+<pre><code>setxkbmap -option ctrl:swapcaps
 </code></pre>
 <!--From_MarkDown}}}-->
 
