@@ -41,6 +41,7 @@
 <a href="#shutter"><li>截圖軟體 Shutter</li></a>
 <a href="#remapxorg"><li>修改Xorg鍵盤對應</li></a>
 <a href="#retext"><li>安裝Retext</li></a>
+<a href="#find-array"><li>儲存find指令結果到array中</li></a>
 </ul>
 </td></tr>
 </tr></table>
@@ -200,13 +201,20 @@ apt install libimage-exiftool-perl #旋轉時修改metadata
 <pre><code>setxkbmap -option ctrl:swapcaps
 </code></pre>
 <p><br /><h2 id="retext">安裝Retext</h2></p>
-<pre><code>
-apt install python3-pip
+<pre><code>apt install python3-pip
 pip3 install -U pip
 pip3 install -U setuptools
 pip3 install -U wheel
 python3 -m pip install ReText --user
 </code></pre>
+<p><br /><h2 id="find-array">儲存find指令結果到array中</h2></p>
+<pre><code>array=()
+while IFS=  read -r -d $'\0'; do
+  array+=("$REPLY")
+done < <(find . -name ${input} -print0)
+</code></pre>
+<p><code>find ... -print0</code>會創建一個以'\0'分隔的字串，而read的<code>-r</code>選項保留反斜線，<code>-d $'\0'</code>選項讓<code>read</code>以'\0'分割字串。</p>
+<p>這個<code>read</code>省略了變數名，因此會放在預設的變數：<code>REPLY</code>中。</p>
 <!--From_MarkDown}}}-->
 
 
