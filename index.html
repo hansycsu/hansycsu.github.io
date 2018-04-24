@@ -126,6 +126,8 @@ apt list --upgradable #列出可更新套件
 dpkg -l PACKAGE #顯示套件狀態
 dpkg -L PACKAGE #顯示套件安裝路徑
 </code></pre>
+<p>進階：列出所有手動安裝</p>
+<pre><code>comm -23 &lt;(apt-mark showmanual | sort -u) &lt;(gzip -dc /var/log/installer/initial-status.gz | sed -n 's/^Package: //p' | sort -u)</code></pre>
 <p><br /><h2 id="tarball-to-deb">讓Tarball也變成套件</h2></p>
 <p><strong>Checkinstall</strong>除了可以追蹤<code>make install</code>的安裝，他還可以追蹤任何Script/Command的檔案修改。這個程式會在 <em>/var/log/packages</em> 產生.deb檔，可由<code>dpkg -r</code>移除</p>
 <pre><code>sudo apt install checkinstall
