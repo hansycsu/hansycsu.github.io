@@ -12,7 +12,6 @@
 <div id="main_content_wrap" class="outer">
 <section id="main_content" class="inner">
 
-
 <h1>
   <img alt="MintLogo" width="70" src="res/mint.svg">
   YC's Linux Note
@@ -35,19 +34,20 @@
 <a href="#package-management"><li>套件管理指令</li></a>
 <a href="#tarball-to-deb"><li>讓Tarball也變成套件</li></a>
 <a href="#repair-boot"><li>開機修復 (grub 2)</li></a>
-<a href="#disk-management"><li>查看磁碟資訊</li></a>
+<a href="#disk-management"><li>檔案系統/硬碟管理</li></a>
 <a href="#dis-swap"><li>關閉Swap</li></a>
 <a href="#home-locale"><li>家目錄改英文</li></a>
 <a href="#shutter"><li>截圖軟體 Shutter</li></a>
 <a href="#remapxorg"><li>修改Xorg鍵盤對應</li></a>
 <a href="#retext"><li>安裝Retext</li></a>
 <a href="#find-array"><li>儲存find指令結果到array中</li></a>
+<a href="#ramdisk"><li>使用/掛載Ramdisk</li></a>
+<a href="#vbox-usb"><li>VirtualBox Guest OS 抓不到滑鼠</li></a>
 </ul>
 </td></tr>
 </tr></table>
 <hr>
 
-<!--From_MarkDown{{{-->
 <p><br /><h2 id="install-font">安裝字型</h2></p>
 <p>微軟英文字體： ttf-mscorefonts-installer<br />
 文泉驛正黑：fonts-wqy-zenhei<br />
@@ -68,6 +68,7 @@ cd MyFonts
 cp /path/to/fonts/* ./
 fc-cache -f -v
 </code></pre>
+
 <p><br /><h2 id="panel-font">設定面版 (Panel) 字型</h2></p>
 <p>將以下的<strong><em>Mint-X</em></strong>換成你正在使用的主題(可在 <em>/usr/share/themes/</em> 查看)</p>
 <pre><code>cp -r /usr/share/themes/Mint-X ~/.themes
@@ -79,14 +80,17 @@ vim ~/.themes/Mint-X/cinnamon/cinnamon.css
     font-family: DEFAULT_FONT;
 }
 </code></pre>
+
 <p><br /><h2 id="bg-issue">VIM背景黑色顯示不正確(變灰色)</h2></p>
 <p>這是因為 GNOME Terminal 的 Palette 定義問題。<br />
 設定方式：Edit→Profile Preferences，選擇Colors分頁，修改下面的調色盤第一項<br />
 參考：<a href="https://superuser.com/questions/142486/black-backgrounds-appear-grey-on-gnome-terminal">black backgrounds appear grey on gnome-terminal</a></p>
+
 <p><br /><h2 id="libreoffice-font-history">LibreOffice 字型使用紀錄</h2></p>
 <p>LibreOffice 的設定檔在 <em>~/.config/libreoffice/</em> 底下，而字型使用記錄在 <em>~/.config/libreoffice/4/user/config/fontnameboxmruentries</em></p>
 <pre><code>vim ~/.config/libreoffice/4/user/config/fontnameboxmruentries
 </code></pre>
+
 <p><br /><h2 id="ime">輸入法相關</h2></p>
 <p>安裝輸入法：</p>
 <pre><code>sudo apt-get install fcitx
@@ -101,6 +105,7 @@ im-config (Choose fcitx as default IME)
 <p>無法顯示選字窗時：(這個套件僅在kde桌面正常運作)</p>
 <pre><code>apt purge fcitx-module-kimpanel
 </code></pre>
+
 <p><br /><h2 id="package-management">套件管理指令</h2></p>
 <p>增加 / 移除 軟體源 (PPA)：</p>
 <pre><code>sudo add-apt-repository ppa:fcitx-team/nightly
@@ -128,6 +133,7 @@ dpkg -L PACKAGE #顯示套件安裝路徑
 </code></pre>
 <p>進階：列出所有手動安裝</p>
 <pre><code>comm -23 &lt;(apt-mark showmanual | sort -u) &lt;(gzip -dc /var/log/installer/initial-status.gz | sed -n 's/^Package: //p' | sort -u)</code></pre>
+
 <p><br /><h2 id="tarball-to-deb">讓Tarball也變成套件</h2></p>
 <p><strong>Checkinstall</strong>除了可以追蹤<code>make install</code>的安裝，他還可以追蹤任何Script/Command的檔案修改。這個程式會在 <em>/var/log/packages</em> 產生.deb檔，可由<code>dpkg -r</code>移除</p>
 <pre><code>sudo apt install checkinstall
@@ -140,6 +146,7 @@ sudo checkinstall #instead of make install
 </code></pre>
 <p>參考1：<a href="https://www.ibm.com/developerworks/cn/linux/l-cn-checkinstall/">Linux源碼安裝工具Checkinstall</a><br />
 參考2：<a href="http://www.asic-linux.com.mx/~izto/checkinstall/docs/README">Checkinstall Readme</a></p>
+
 <p><br /><h2 id="repair-boot">開機修復 (grub 2)</h2></p>
 <p>首先以Live CD/USB開機，接著開啟Terminal執行以下指令：</p>
 <pre><code>sudo fdisk -l #確認bootloader分割區，以下以sda1為例
@@ -153,11 +160,14 @@ sudo reboot
 <p>完成，以sda1重新開機即可。<br />
 參考1：<a href="http://wiki.ubuntu-tw.org/index.php?title=GRUB2%E4%B8%AD%E6%96%87%E6%8C%87%E5%8D%97%E7%AC%AC%E4%BA%8C%E7%89%88%28%E4%B8%8A%EF%BC%89#.E9.87.8D.E6.96.B0.E5.AE.89.E8.A3.9D_GRUB_2">GRUB2中文指南第二版(上）</a><br />
 參考2：<a href="https://help.ubuntu.com/community/Grub2/Installing#Reinstalling_GRUB_2">Reinstalling GRUB 2</a></p>
-<p><br /><h2 id="disk-management">硬碟管理</h2></p>
+
+<p><br /><h2 id="disk-management">檔案系統/硬碟管理</h2></p>
 <p>查看硬碟資訊：</p>
 <pre><code>sudo fdisk -l
 lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,UUID
+df
 </code></pre>
+
 <p><br /><h2 id="dis-swap">關閉Swap</h2></p>
 <p>以下是如何在系統安裝完成後關閉Swap</p>
 <pre><code>sudo swapoff -a
@@ -168,6 +178,7 @@ sudo parted /dev/sdc
 (parted) rm 6 #移除Swap分區
 (parted) resizepart 5 100% #重新分配剩下的分區給sdc5
 </code></pre>
+
 <p><br /><h2 id="home-locale">家目錄改英文</h2></p>
 <h3>方法一</h3>
 <p>設語系為英文，再執行<code>xdg-user-dirs-gtk-update</code></p>
@@ -190,6 +201,7 @@ xdg-user-dirs-update --force
 <pre><code>echo en_US &gt; ~/.config/user-dirs.locale #目前為英文
 echo zh_TW &gt; ~/.config/user-dirs.locale #目前為中文
 </code></pre>
+
 <p><br /><h2 id="shutter">截圖軟體 Shutter</h2></p>
 <pre><code>sudo apt-add-repository ppa:shutter/ppa
 apt update
@@ -198,10 +210,12 @@ apt install libgoo-canvas-perl #編輯功能
 apt install gnome-web-photo #網頁截圖
 apt install libimage-exiftool-perl #旋轉時修改metadata
 </code></pre>
+
 <p><br /><h2 id="remapxorg">修改Xorg鍵盤對應</h2></p>
 <p>以下以交換Ctrl &amp; Capslock為例，其他option可以在 <em>/usr/share/X11/xkb/rules/base.lst</em> 中找到。若要永久改變可加入 <em>~/.profile</em> 之中。</p>
 <pre><code>setxkbmap -option ctrl:swapcaps
 </code></pre>
+
 <p><br /><h2 id="retext">安裝Retext</h2></p>
 <pre><code>apt install python3-pip
 pip3 install -U pip
@@ -209,16 +223,37 @@ pip3 install -U setuptools
 pip3 install -U wheel
 python3 -m pip install ReText --user
 </code></pre>
+
 <p><br /><h2 id="find-array">儲存find指令結果到array中</h2></p>
 <pre><code>array=()
 while IFS=  read -r -d $'\0'; do
   array+=("$REPLY")
-done < <(find . -name ${input} -print0)
+done &lt; &lt;(find . -name ${input} -print0)
 </code></pre>
 <p><code>find ... -print0</code>會創建一個以'\0'分隔的字串，而read的<code>-r</code>選項保留反斜線，<code>-d $'\0'</code>選項讓<code>read</code>以'\0'分割字串。</p>
 <p>這個<code>read</code>省略了變數名，因此會放在預設的變數：<code>REPLY</code>中。</p>
-<!--From_MarkDown}}}-->
+<p>參考：<a href="https://stackoverflow.com/questions/23356779">How can I store find command result as arrays in Bash</a></p>
 
+<p><br /><h2 id="ramdisk">使用/掛載Ramdisk</h2></p>
+<p>先開啟一個作為掛載ramdisk目錄的資料夾，再以<code>mount</code>掛載，<code>-t tmpfs</code>指定檔案系統為tmpfs(可使用swapfile空間)，<code>-o size=100M</code>指定ramdisk大小為100MB。</p>
+<pre><code>sudo mkdir /mnt/ram
+sudo mount -t tmpfs -o size=100M tmpfs /mnt/ram
+</code></pre>
+
+<p><br /><h2 id="vbox-usb">VirtualBox Guest OS 抓不到滑鼠</h2></p>
+<ol>
+  <li>確認自己的帳號是否在vboxusers群組中</li>
+  <li>Guest OS 設定 Ctrl顯示滑鼠位置。</li>
+  <li>點選VirtualBox下方USB圖示，加入USB滑鼠</li>
+</ol>
+<pre><code>groups #查看輸出中是否有vboxusers
+sudo usermod -a -G vboxusers (ACCOUNT) #將自己的帳號(ACCOUNT)加入vboxusers群組
+reboot #須重開機
+</code></pre>
+<p>
+  參考1：<a href="https://blog.gtwang.org/linux/ubuntu-virtualbox-cannot-attach-usb-devices/">解決 Ubuntu Linux 的 VirtualBox 找不到 USB 裝置的問題</a><br />
+  參考2：<a href="https://www.youtube.com/watch?v=-0OyrvbZNwo">Using G700 on Linux through VirtualBox</a>
+</p>
 
 </section>
 </div>
