@@ -205,7 +205,7 @@ echo zh_TW &gt; ~/.config/user-dirs.locale #目前為中文
 <p><br /><h2 id="shutter">截圖軟體 Shutter</h2></p>
 <pre><code>sudo apt-add-repository ppa:shutter/ppa
 apt update
-apt install shutter 
+apt install shutter
 apt install libgoo-canvas-perl #編輯功能
 apt install gnome-web-photo #網頁截圖
 apt install libimage-exiftool-perl #旋轉時修改metadata
@@ -214,6 +214,7 @@ apt install libimage-exiftool-perl #旋轉時修改metadata
 <p><br /><h2 id="remapxorg">修改Xorg鍵盤對應</h2></p>
 <p>以下以交換Ctrl &amp; Capslock為例，其他option可以在 <em>/usr/share/X11/xkb/rules/base.lst</em> 中找到。若要永久改變可加入 <em>~/.profile</em> 之中。</p>
 <pre><code>setxkbmap -option ctrl:swapcaps
+setxkbmap -option #取消設定
 </code></pre>
 
 <p><br /><h2 id="retext">安裝Retext</h2></p>
